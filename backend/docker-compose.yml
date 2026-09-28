@@ -1,0 +1,27 @@
+services:
+  backend:
+    build: .
+    ports:
+      - "4000:4000"
+    environment:
+      PORT: 4000
+      NODE_ENV: production
+      DATABASE_URL: "file:./data/prod.db"
+      JWT_SECRET: ${JWT_SECRET:-change-me-in-.env}
+      JWT_EXPIRES_IN: 7d
+      OTP_LENGTH: 6
+      OTP_TTL_MINUTES: 10
+      OTP_MAX_ATTEMPTS: 5
+      OTP_RESEND_COOLDOWN_SECONDS: 30
+      EMAIL_MODE: ${EMAIL_MODE:-ethereal}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-1025}
+      SMTP_SECURE: ${SMTP_SECURE:-false}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      EMAIL_FROM: ${EMAIL_FROM:-PadosiPro <no-reply@padosipro.local>}
+    volumes:
+      - backend-data:/app/data
+
+volumes:
+  backend-data:
